@@ -1,8 +1,13 @@
 const form = document.querySelector('#form');
 const input = document.querySelector('#title');
 const list = document.querySelector('#list');
-//할일 목록이 저장될 배열 생성
-let tasks = [];
+
+//처음 페이지 로딩시 로컬 저장소에서 TASKS에 대한 데이터호출
+let data = localStorage.getItem('TASKS');
+//해당 데이터가 있으면 parsing 해서 tasks배열에 저장, 없으면 빈배열 저장
+let tasks = data ? JSON.parse(data) : [];
+
+tasks.map((task) => addListItem(task));
 
 form.addEventListener('submit', (e) => {
 	e.preventDefault();
@@ -21,6 +26,9 @@ form.addEventListener('submit', (e) => {
 	console.log('newTask', newTask);
 
 	list.innerHTML = '';
+	//새로운 객체가 만들어지면 저장소에 데이터를 집어넣고
+	localStorage.setItem('TASKS', JSON.stringify(tasks));
+	//tasks에 있는 배열값을 반복돌면서 목록 생성
 	tasks.map((task) => addListItem(task));
 });
 
@@ -37,6 +45,8 @@ function addListItem(task) {
 		task.complete = checkbox.checked;
 		//change이벤트가 발생할때마다 해당객체의 complete값이 true면 line-through적용 그렇지 않으면 미적용
 		item.style.textDecoration = task.complete ? 'line-through' : 'none';
+		//동적으로 생긴 checkbox요소에 change이벤트가 발생할때마다 다시 변경점을 로컬저장소에 저장
+		localStorage.setItem('TASKS', JSON.stringify(tasks));
 	});
 
 	//li노드에  자식으로 checkbox, 인수로 받은 객체의 할일내용 추가
