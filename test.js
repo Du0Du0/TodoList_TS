@@ -1,6 +1,6 @@
-const form = document.querySelector('#form');
-const input = document.querySelector('#title');
-const list = document.querySelector('#list');
+const form = document.querySelector < HTMLFormElement > '#form';
+const input = document.querySelector < HTMLInputElement > '#title';
+const list = document.querySelector < HTMLUListElement > '#list';
 
 //처음 페이지 로딩시 로컬 저장소에서 TASKS에 대한 데이터호출
 let data = localStorage.getItem('TASKS');
