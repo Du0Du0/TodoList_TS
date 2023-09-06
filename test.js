@@ -39,8 +39,9 @@ function addListItem(task) {
 	//input노드에 checkbox타입 설정
 	checkbox.type = 'checkbox';
 
-	//동적으로 생성되는 checkbox요소에 아예 이벤트핸들러까지 연결해서 생성
-	//이벤트위임을 하지 않아도 동적인 요소에 이벤트 연결하는 방법
+	checkbox.checked = task.complete ? true : false;
+	item.style.textDecoration = task.complete ? 'line-through' : 'none';
+
 	checkbox.addEventListener('change', () => {
 		task.complete = checkbox.checked;
 		//change이벤트가 발생할때마다 해당객체의 complete값이 true면 line-through적용 그렇지 않으면 미적용
